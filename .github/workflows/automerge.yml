@@ -6,14 +6,23 @@ on:
       - "main"
 
 jobs:
-  merge-branch:
+  sync-branch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@master
+
       - name: Merge main -> alpha
         uses: devmasx/merge-branch@master
         with:
           type: now
+          from_branch: mail
           target_branch: alpha
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          
+
+      - name: Merge main -> beta
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: main
+          target_branch: beta
+          github_token: ${{ secrets.GITHUB_TOKEN }}
