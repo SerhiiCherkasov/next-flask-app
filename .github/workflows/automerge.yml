@@ -15,7 +15,7 @@ jobs:
         uses: devmasx/merge-branch@master
         with:
           type: now
-          from_branch: main
+          head_to_merge: main
           target_branch: alpha
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -23,6 +23,6 @@ jobs:
         uses: devmasx/merge-branch@master
         with:
           type: now
-          from_branch: main
+          head_to_merge: main
           target_branch: beta
           github_token: ${{ secrets.GITHUB_TOKEN }}
