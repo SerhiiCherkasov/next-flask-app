@@ -1,0 +1,31 @@
+name: Automerge
+
+permissions:
+      contents: write
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  sync-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Merge main -> alpha
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          head_to_merge: main
+          target_branch: alpha
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge main -> beta
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          head_to_merge: main
+          target_branch: beta
+          github_token: ${{ secrets.GITHUB_TOKEN }}
