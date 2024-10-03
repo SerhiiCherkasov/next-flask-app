@@ -8,20 +8,20 @@ on:
 env:
   MY_REPO: https://SerhiiCherkasov:${{secrets.GITHUB_TOKEN}}@https://github.com/SerhiiCherkasov/next-flask-app
   MY_BRANCH: alpha
-#  MASTER_REPO: https://github.com/Vlasenkon/AddWise-IDEX-Firmware/tree/MK3
-#  MASTER_BRANCH: MK3
+  MASTER_REPO: https://github.com/SerhiiCherkasov/next-flask-app/tree/main
+  MASTER_BRANCH: main
 
 jobs:
   if_merged:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-#    steps:
-#    - name: Merge with master
-#      run: |
-#        git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
-#        cd tmp
-#        git config user.name "Automerge Bot"
-#        git config user.email "bot@example.com"
-#        git config pull.rebase false
-#        git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
-#        git push
+    steps:
+    - name: Merge with master
+      run: |
+        git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
+        cd tmp
+        git config user.name "Automerge Bot"
+        git config user.email "bot@example.com"
+        git config pull.rebase false
+        git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
+        git push
