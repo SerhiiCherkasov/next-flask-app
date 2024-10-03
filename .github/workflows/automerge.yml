@@ -1,27 +1,19 @@
 name: Automerge
 
 on:
-  pull_request:
-    types:
-      - closed
-
-env:
-  MY_REPO: https://SerhiiCherkasov:${{secrets.GITHUB_TOKEN}}@github.com/SerhiiCherkasov/next-flask-app
-  MY_BRANCH: alpha
-  MASTER_REPO: https://github.com/SerhiiCherkasov/next-flask-app/tree/main
-  MASTER_BRANCH: main
+  push:
+    branches:
+      - "main"
 
 jobs:
-  if_merged:
-    if: github.event.pull_request.merged == true
+  merge-branch:
     runs-on: ubuntu-latest
     steps:
-    - name: Merge with master
-      run: |
-        git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
-        cd tmp
-        git config user.name "Automerge Bot"
-        git config user.email "bot@example.com"
-        git config pull.rebase false
-        git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
-        git push
+      - uses: actions/checkout@main
+      - name: Merge main -> alpha
+        uses: devmasx/merge-branch@main
+        with:
+          type: now
+          target_branch: alpha
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          
